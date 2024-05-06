@@ -44,10 +44,7 @@ async function getStock(stock) {
 module.exports = function (app) {
   app.route('/api/stock-prices').get(async function (req, res) {
     const { stock, like } = req.query
-    console.log(like, stock.length)
     if (Array.isArray(stock)) {
-      console.log('Stocks: ', stock)
-
       const { symbol, latestPrice } = await getStock(stock[0])
       const { symbol: symbol2, latestPrice: latestPrice2 } = await getStock(
         stock[1]
@@ -75,7 +72,7 @@ module.exports = function (app) {
         })
       } else {
         stockData.push({
-          stock: symbol,
+          stock: symbol2,
           price: latestPrice,
           rel_likes: secondStock.likes.length - firstStock.likes.length,
         })
